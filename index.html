@@ -87,7 +87,7 @@
                 <p class="section-subtitle">Download and preview comprehensive study materials</p>
             </div>
             <div class="notes-grid">
-                <div class="note-card" data-aos="fade-up">
+                <div class="note-card" data-aos="fade-up" data-drive-id="1AL-n798ti4XEVe21Vju8v_6frdOkOamz">
                     <div class="note-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -98,7 +98,7 @@
                         <button class="btn btn-primary download-btn" data-subject="math">Download</button>
                     </div>
                 </div>
-                <div class="note-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="note-card" data-aos="fade-up" data-aos-delay="100" data-drive-id="1Rv3bg8jTwEYKzOgJysClF-nUcnE93lcY">
                     <div class="note-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -109,7 +109,7 @@
                         <button class="btn btn-primary download-btn" data-subject="physics">Download</button>
                     </div>
                 </div>
-                <div class="note-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="note-card" data-aos="fade-up" data-aos-delay="200" data-drive-id="1iACzOpyv5pggx7O1f26utISrpLdf2rq2">
                     <div class="note-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -120,7 +120,7 @@
                         <button class="btn btn-primary download-btn" data-subject="chemistry">Download</button>
                     </div>
                 </div>
-                <div class="note-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="note-card" data-aos="fade-up" data-aos-delay="300" data-drive-id="1hUZksDLc7QJu9lQ4Fwr017vDCJesLDag">
                     <div class="note-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -131,7 +131,7 @@
                         <button class="btn btn-primary download-btn" data-subject="biology">Download</button>
                     </div>
                 </div>
-                <div class="note-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="note-card" data-aos="fade-up" data-aos-delay="300" data-drive-id="1fktBhx4ZFCyXzfhol_Rc5FQIZmaMZj4m">
                     <div class="note-icon">
                         <i class="fas fa-book"></i>
                     </div>
@@ -471,6 +471,46 @@
         </div>
     </section>
 
+    <!-- Python Compiler Section -->
+    <section id="python-compiler" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Python Compiler</h2>
+                <p class="section-subtitle">Write Python code and run it instantly in your browser. Output appears on the right.</p>
+            </div>
+            <div class="compiler-wrapper">
+                <div class="editor-pane">
+                    <div class="compiler-toolbar">
+                        <div class="left">
+                            <button id="runPython" class="btn btn-primary"><i class="fas fa-play"></i> Run</button>
+                            <button id="resetPython" class="btn btn-outline"><i class="fas fa-rotate-left"></i> Reset</button>
+                        </div>
+                        <div class="right">
+                            <span id="pyStatus" class="status-badge">Pyodide: not loaded</span>
+                        </div>
+                    </div>
+                    <textarea id="pythonEditor" spellcheck="false" aria-label="Python editor"># Welcome to the Skills & Brains in-browser Python compiler!
+# Write Python code on the left, then click Run.
+
+# Example: compute factorial
+
+def factorial(n):
+    return 1 if n <= 1 else n * factorial(n-1)
+
+print("Factorial of 5 is", factorial(5))
+</textarea>
+                </div>
+                <div class="output-pane">
+                    <div class="output-header">
+                        <span><i class="fas fa-terminal"></i> Output</span>
+                        <button id="clearOutput" class="btn btn-outline btn-small">Clear</button>
+                    </div>
+                    <pre id="pythonOutput" aria-live="polite"></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="section bg-light">
         <div class="container">
@@ -577,6 +617,7 @@
         </div>
     </div>
 
+    <script defer src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
