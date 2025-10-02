@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initParallaxEffects();
     initCounterAnimations();
+    initPythonCompiler();
 });
 
 // Navigation functionality
@@ -63,6 +64,118 @@ function initNavigation() {
             }
         });
     });
+}
+
+// Python Compiler (Pyodide)
+function initPythonCompiler() {
+    const editor = document.getElementById('pythonEditor');
+    const output = document.getElementById('pythonOutput');
+    const runBtn = document.getElementById('runPython');
+    const resetBtn = document.getElementById('resetPython');
+    const clearBtn = document.getElementById('clearOutput');
+    const statusBadge = document.getElementById('pyStatus');
+
+    if (!editor || !output || !runBtn || !resetBtn || !statusBadge) return;
+
+    let pyodide = null;
+    let isLoading = false;
+
+    function setStatus(text, kind = 'info') {
+        statusBadge.textContent = text;
+        statusBadge.style.background = kind === 'error' ? '#fee2e2' : (kind === 'ready' ? '#dcfce7' : '#eef2ff');
+        statusBadge.style.borderColor = kind === 'error' ? '#fecaca' : (kind === 'ready' ? '#bbf7d0' : '#c7d2fe');
+    }
+
+    async function loadPyodideOnce() {
+        if (pyodide || isLoading) return pyodide;
+        if (!window.loadPyodide) {
+            setStatus('Pyodide script missing', 'error');
+            return null;
+        }
+        try {
+            isLoading = true;
+            setStatus('Loading Pyodide...');
+            pyodide = await window.loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/' });
+            setStatus('Pyodide: ready', 'ready');
+            return pyodide;
+        } catch (e) {
+            setStatus('Pyodide failed to load', 'error');
+            appendLine(String(e), 'stderr');
+            return null;
+        } finally {
+            isLoading = false;
+        }
+    }
+
+    function appendLine(text, stream = 'stdout') {
+        const line = document.createElement('div');
+        line.className = stream;
+        line.textContent = text;
+        output.appendChild(line);
+        output.scrollTop = output.scrollHeight;
+    }
+
+    function captureIO(pyodide) {
+        // Redirect Python print and errors to our output
+        pyodide.runPython(`
+import sys
+class _SBOut:
+    def write(self, s):
+        if s:\n            from js import append_stdout
+            append_stdout(str(s))
+    def flush(self):
+        pass
+class _SBErr:
+    def write(self, s):
+        if s:\n            from js import append_stderr
+            append_stderr(str(s))
+    def flush(self):
+        pass
+sys.stdout = _SBOut()
+sys.stderr = _SBErr()
+`);
+    }
+
+    // Expose JS bridges for stdout/stderr
+    window.append_stdout = (s) => {
+        s.split('\n').forEach(line => { if (line) appendLine(line, 'stdout'); });
+    };
+    window.append_stderr = (s) => {
+        s.split('\n').forEach(line => { if (line) appendLine(line, 'stderr'); });
+    };
+
+    runBtn.addEventListener('click', async () => {
+        runBtn.disabled = true;
+        runBtn.innerHTML = '<span class="loading"></span> Running...';
+        try {
+            const pyo = await loadPyodideOnce();
+            if (!pyo) return;
+            captureIO(pyo);
+            await pyo.runPythonAsync(editor.value);
+        } catch (e) {
+            appendLine(String(e), 'stderr');
+        } finally {
+            runBtn.disabled = false;
+            runBtn.innerHTML = '<i class="fas fa-play"></i> Run';
+        }
+    });
+
+    resetBtn.addEventListener('click', async () => {
+        try {
+            pyodide = null; // drop reference
+            setStatus('Resetting...');
+            await loadPyodideOnce();
+        } catch (e) {
+            appendLine(String(e), 'stderr');
+        }
+    });
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => { output.innerHTML = ''; });
+    }
+
+    // Lazy load pyodide after a short delay to avoid blocking initial paint
+    setTimeout(loadPyodideOnce, 600);
 }
 
 // Scroll animations
@@ -152,50 +265,56 @@ function initDownloadPreview() {
 
     // Preview functionality
     previewBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(event) {
+            const card = event.currentTarget.closest('.note-card, .question-card');
+            const driveId = card ? card.getAttribute('data-drive-id') : null;
             const subject = this.getAttribute('data-subject') || this.getAttribute('data-type');
-            showPreview(subject);
+            showPreview(subject, driveId);
         });
     });
 
     // Download functionality
     downloadBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(event) {
+            const card = event.currentTarget.closest('.note-card, .question-card');
+            const driveId = card ? card.getAttribute('data-drive-id') : null;
             const subject = this.getAttribute('data-subject') || this.getAttribute('data-type');
-            downloadFile(subject);
+            downloadFile(subject, driveId, event);
         });
     });
 
-    function showPreview(subject) {
+    function showPreview(subject, driveId) {
         modalTitle.textContent = `Preview - ${getSubjectName(subject)}`;
-        modalContent.innerHTML = getPreviewContent(subject);
+        if (driveId) {
+            const previewUrl = `https://drive.google.com/file/d/${driveId}/preview`;
+            modalContent.innerHTML = `<div class="drive-preview-wrapper"><iframe src="${previewUrl}" allow="autoplay" class="drive-preview-iframe"></iframe></div>`;
+        } else {
+            modalContent.innerHTML = getPreviewContent(subject);
+        }
         modal.style.display = 'block';
     }
 
-    function downloadFile(subject) {
+    function downloadFile(subject, driveId, event) {
         // Show loading state
         const btn = event.target;
         const originalText = btn.textContent;
         btn.innerHTML = '<span class="loading"></span> Downloading...';
         btn.disabled = true;
 
-        // Simulate download (replace with actual file URLs)
-        setTimeout(() => {
-            // Create a temporary link to download the file
-            const link = document.createElement('a');
-            link.href = getFileUrl(subject);
-            link.download = `${getSubjectName(subject)}.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+        const link = document.createElement('a');
+        const href = driveId ? `https://drive.google.com/uc?export=download&id=${driveId}` : getFileUrl(subject);
+        link.href = href;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
-            // Reset button state
-            btn.textContent = originalText;
-            btn.disabled = false;
+        // Reset button state
+        btn.textContent = originalText;
+        btn.disabled = false;
 
-            // Show success message
-            showNotification('File downloaded successfully!', 'success');
-        }, 2000);
+        showNotification('Download started', 'success');
     }
 
     function getSubjectName(subject) {
