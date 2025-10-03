@@ -1,1337 +1,744 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    overflow-x: hidden;
-    padding-top: 70px; /* offset for fixed navbar */
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Navigation */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-}
-
-.nav-logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #6366f1;
-}
-
-.nav-logo i {
-    margin-right: 10px;
-    font-size: 1.8rem;
-}
-
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.nav-link:hover {
-    color: #6366f1;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #6366f1;
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.bar {
-    width: 25px;
-    height: 3px;
-    background: #333;
-    margin: 3px 0;
-    transition: 0.3s;
-}
-
-/* Hero Section */
-.hero {
-    min-height: calc(100vh - 70px);
-    display: flex;
-    align-items: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
-    background-size: cover;
-}
-
-.hero-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-}
-
-.hero-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    animation: slideInLeft 1s ease-out;
-}
-
-.highlight {
-    color: #fbbf24;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.hero-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    animation: slideInLeft 1s ease-out 0.2s both;
-}
-
-.hero-description {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-    animation: slideInLeft 1s ease-out 0.4s both;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    animation: slideInLeft 1s ease-out 0.6s both;
-}
-
-.hero-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: slideInRight 1s ease-out 0.8s both;
-}
-
-.floating-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
-    text-align: center;
-    animation: float 3s ease-in-out infinite;
-}
-
-.floating-card i {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    color: #fbbf24;
-}
-
-.floating-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: bounce 2s infinite;
-}
-
-.scroll-arrow {
-    width: 30px;
-    height: 30px;
-    border: 2px solid white;
-    border-top: none;
-    border-left: none;
-    transform: rotate(45deg);
-}
-
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.btn:hover::before {
-    left: 100%;
-}
-
-.btn-primary {
-    background: linear-gradient(45deg, #6366f1, #8b5cf6);
-    color: white;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
-}
-
-.btn-secondary {
-    background: transparent;
-    color: white;
-    border: 2px solid white;
-}
-
-.btn-secondary:hover {
-    background: white;
-    color: #6366f1;
-    transform: translateY(-2px);
-}
-
-.btn-outline {
-    background: transparent;
-    color: #6366f1;
-    border: 2px solid #6366f1;
-}
-
-.btn-outline:hover {
-    background: #6366f1;
-    color: white;
-    transform: translateY(-2px);
-}
-
-/* Sections */
-.section {
-    padding: 100px 0;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 4rem;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #1f2937;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(45deg, #6366f1, #8b5cf6);
-    border-radius: 2px;
-}
-
-.section-subtitle {
-    font-size: 1.1rem;
-    color: #6b7280;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.bg-light {
-    background: #f8fafc;
-}
-
-/* Notes Section */
-.notes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.note-card {
-    background: white;
-    border-radius: 20px;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.note-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(45deg, #6366f1, #8b5cf6);
-}
-
-.note-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.note-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(45deg, #6366f1, #8b5cf6);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: white;
-    font-size: 2rem;
-}
-
-.note-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #1f2937;
-}
-
-.note-card p {
-    color: #6b7280;
-    margin-bottom: 2rem;
-}
-
-.note-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-
-/* Question Bank Section */
-.question-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-}
-
-.question-card {
-    background: white;
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.question-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(45deg, #10b981, #059669);
-}
-
-.question-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.question-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.question-header i {
-    font-size: 2rem;
-    color: #10b981;
-    margin-right: 1rem;
-}
-
-.question-header h3 {
-    font-size: 1.5rem;
-    color: #1f2937;
-}
-
-.question-stats {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.stat {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #6b7280;
-    font-size: 0.9rem;
-}
-
-.stat i {
-    color: #10b981;
-}
-
-.question-card p {
-    color: #6b7280;
-    margin-bottom: 2rem;
-}
-
-.question-actions {
-    display: flex;
-    gap: 1rem;
-}
-
-/* Syllabus Section */
-.syllabus-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.syllabus-tabs {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 3rem;
-    background: white;
-    border-radius: 50px;
-    padding: 5px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.tab-btn {
-    padding: 12px 30px;
-    border: none;
-    background: transparent;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    color: #6b7280;
-}
-
-.tab-btn.active {
-    background: linear-gradient(45deg, #6366f1, #8b5cf6);
-    color: white;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.syllabus-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.syllabus-card {
-    background: white;
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.syllabus-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.syllabus-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: #1f2937;
-    text-align: center;
-}
-
-.syllabus-card ul {
-    list-style: none;
-}
-
-.syllabus-card li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #e5e7eb;
-    color: #6b7280;
-    position: relative;
-    padding-left: 1.5rem;
-}
-
-.syllabus-card li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: #10b981;
-    font-weight: bold;
-}
-
-.syllabus-card li:last-child {
-    border-bottom: none;
-}
-
-/* About Section */
-.about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.about-text h3 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #1f2937;
-}
-
-.about-text p {
-    color: #6b7280;
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-.about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.stat-item {
-    text-align: center;
-    padding: 2rem;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #6366f1;
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    color: #6b7280;
-    font-weight: 500;
-}
-
-/* Vision & Mission */
-.vision-mission {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-}
-
-.vision-card,
-.mission-card {
-    background: white;
-    border-radius: 20px;
-    padding: 3rem;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.vision-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(45deg, #f59e0b, #f97316);
-}
-
-.mission-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(45deg, #10b981, #059669);
-}
-
-.vision-card:hover,
-.mission-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.card-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    font-size: 2rem;
-    color: white;
-}
-
-.vision-card .card-icon {
-    background: linear-gradient(45deg, #f59e0b, #f97316);
-}
-
-.mission-card .card-icon {
-    background: linear-gradient(45deg, #10b981, #059669);
-}
-
-.vision-card h3,
-.mission-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #1f2937;
-}
-
-.vision-card p,
-.mission-card p {
-    color: #6b7280;
-    line-height: 1.8;
-    font-size: 1.1rem;
-}
-
-/* Contact Section */
-.contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.contact-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.contact-item i {
-    font-size: 1.5rem;
-    color: #6366f1;
-    width: 50px;
-    height: 50px;
-    background: rgba(99, 102, 241, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.contact-item h4 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    color: #1f2937;
-}
-
-.contact-item p {
-    color: #6b7280;
-}
-
-.feedback-section {
-    background: white;
-    border-radius: 20px;
-    padding: 3rem;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.feedback-section h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: #1f2937;
-}
-
-.feedback-section p {
-    color: #6b7280;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-}
-
-.feedback-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
-    padding: 15px 30px;
-}
-
-/* Footer */
-.footer {
-    background: #1f2937;
-    color: white;
-    padding: 3rem 0 1rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #6366f1;
-}
-
-.footer-logo i {
-    margin-right: 10px;
-    font-size: 1.8rem;
-}
-
-.footer-section p {
-    color: #9ca3af;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.footer-section h4 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: white;
-}
-
-.footer-section ul {
-    list-style: none;
-}
-
-.footer-section li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-section a {
-    color: #9ca3af;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-section a:hover {
-    color: #6366f1;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-}
-
-.social-links a {
-    width: 40px;
-    height: 40px;
-    background: rgba(99, 102, 241, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.social-links a:hover {
-    background: #6366f1;
-    transform: translateY(-2px);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    color: #9ca3af;
-}
-
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 2rem;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    animation: modalSlideIn 0.3s ease-out;
-}
-
-.close {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: #6b7280;
-    transition: color 0.3s ease;
-}
-
-.close:hover {
-    color: #1f2937;
-}
-
-/* Animations */
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
+// DOM Content Loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all functionality
+    initNavigation();
+    initScrollAnimations();
+    initSyllabusTabs();
+    initModal();
+    initDownloadPreview();
+    initSmoothScrolling();
+    initParallaxEffects();
+    initCounterAnimations();
+    initPythonCompiler();
+});
+
+// Navigation functionality
+function initNavigation() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navbar = document.querySelector('.navbar');
+
+    // Mobile menu toggle
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        }
+    });
+
+    // Active link highlighting
+    window.addEventListener('scroll', function() {
+        let current = '';
+        const sections = document.querySelectorAll('section');
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= (sectionTop - 200)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+}
+
+// Python Compiler (Pyodide)
+function initPythonCompiler() {
+    const editor = document.getElementById('pythonEditor');
+    const output = document.getElementById('pythonOutput');
+    const runBtn = document.getElementById('runPython');
+    const resetBtn = document.getElementById('resetPython');
+    const clearBtn = document.getElementById('clearOutput');
+    const statusBadge = document.getElementById('pyStatus');
+
+    if (!editor || !output || !runBtn || !resetBtn || !statusBadge) return;
+
+    let pyodide = null;
+    let isLoading = false;
+
+    function setStatus(text, kind = 'info') {
+        statusBadge.textContent = text;
+        statusBadge.style.background = kind === 'error' ? '#fee2e2' : (kind === 'ready' ? '#dcfce7' : '#eef2ff');
+        statusBadge.style.borderColor = kind === 'error' ? '#fecaca' : (kind === 'ready' ? '#bbf7d0' : '#c7d2fe');
     }
-    to {
-        opacity: 1;
-        transform: translateX(0);
+
+    async function loadPyodideOnce() {
+        if (pyodide || isLoading) return pyodide;
+        if (!window.loadPyodide) {
+            setStatus('Pyodide script missing', 'error');
+            return null;
+        }
+        try {
+            isLoading = true;
+            setStatus('Loading Pyodide...');
+            pyodide = await window.loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/' });
+            setStatus('Pyodide: ready', 'ready');
+            return pyodide;
+        } catch (e) {
+            setStatus('Pyodide failed to load', 'error');
+            appendLine(String(e), 'stderr');
+            return null;
+        } finally {
+            isLoading = false;
+        }
+    }
+
+    function appendLine(text, stream = 'stdout') {
+        const line = document.createElement('div');
+        line.className = stream;
+        line.textContent = text;
+        output.appendChild(line);
+        output.scrollTop = output.scrollHeight;
+    }
+
+    function captureIO(pyodide) {
+        // Redirect Python print and errors to our output
+        pyodide.runPython(`
+import sys
+class _SBOut:
+    def write(self, s):
+        if s:\n            from js import append_stdout
+            append_stdout(str(s))
+    def flush(self):
+        pass
+class _SBErr:
+    def write(self, s):
+        if s:\n            from js import append_stderr
+            append_stderr(str(s))
+    def flush(self):
+        pass
+sys.stdout = _SBOut()
+sys.stderr = _SBErr()
+`);
+    }
+
+    // Expose JS bridges for stdout/stderr
+    window.append_stdout = (s) => {
+        s.split('\n').forEach(line => { if (line) appendLine(line, 'stdout'); });
+    };
+    window.append_stderr = (s) => {
+        s.split('\n').forEach(line => { if (line) appendLine(line, 'stderr'); });
+    };
+
+    runBtn.addEventListener('click', async () => {
+        runBtn.disabled = true;
+        runBtn.innerHTML = '<span class="loading"></span> Running...';
+        try {
+            const pyo = await loadPyodideOnce();
+            if (!pyo) return;
+            captureIO(pyo);
+            await pyo.runPythonAsync(editor.value);
+        } catch (e) {
+            appendLine(String(e), 'stderr');
+        } finally {
+            runBtn.disabled = false;
+            runBtn.innerHTML = '<i class="fas fa-play"></i> Run';
+        }
+    });
+
+    resetBtn.addEventListener('click', async () => {
+        try {
+            pyodide = null; // drop reference
+            setStatus('Resetting...');
+            await loadPyodideOnce();
+        } catch (e) {
+            appendLine(String(e), 'stderr');
+        }
+    });
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => { output.innerHTML = ''; });
+    }
+
+    // Lazy load pyodide after a short delay to avoid blocking initial paint
+    setTimeout(loadPyodideOnce, 600);
+}
+
+// Scroll animations
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('aos-animate');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all elements with data-aos attribute
+    document.querySelectorAll('[data-aos]').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Parallax effect for hero section
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+    });
+}
+
+// Syllabus tabs functionality
+function initSyllabusTabs() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remove active class from all buttons and contents
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked button and corresponding content
+            this.classList.add('active');
+            document.getElementById(targetTab).classList.add('active');
+        });
+    });
+}
+
+// Modal functionality
+function initModal() {
+    const modal = document.getElementById('previewModal');
+    const closeBtn = document.querySelector('.close');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+
+    // Close modal
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+// Download and preview functionality
+function initDownloadPreview() {
+    const previewBtns = document.querySelectorAll('.preview-btn');
+    const downloadBtns = document.querySelectorAll('.download-btn');
+    const modal = document.getElementById('previewModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+
+    // Preview functionality
+    previewBtns.forEach(btn => {
+        btn.addEventListener('click', function(event) {
+            const card = event.currentTarget.closest('.note-card, .question-card');
+            const driveId = card ? card.getAttribute('data-drive-id') : null;
+            const subject = this.getAttribute('data-subject') || this.getAttribute('data-type');
+            showPreview(subject, driveId);
+        });
+    });
+
+    // Download functionality
+    downloadBtns.forEach(btn => {
+        btn.addEventListener('click', function(event) {
+            const card = event.currentTarget.closest('.note-card, .question-card');
+            const driveId = card ? card.getAttribute('data-drive-id') : null;
+            const subject = this.getAttribute('data-subject') || this.getAttribute('data-type');
+            downloadFile(subject, driveId, event);
+        });
+    });
+
+    function showPreview(subject, driveId) {
+        modalTitle.textContent = `Preview - ${getSubjectName(subject)}`;
+        if (driveId) {
+            const previewUrl = `https://drive.google.com/file/d/${driveId}/preview`;
+            modalContent.innerHTML = `<div class="drive-preview-wrapper"><iframe src="${previewUrl}" allow="autoplay" class="drive-preview-iframe"></iframe></div>`;
+        } else {
+            modalContent.innerHTML = getPreviewContent(subject);
+        }
+        modal.style.display = 'block';
+    }
+
+    function downloadFile(subject, driveId, event) {
+        // Show loading state
+        const btn = event.target;
+        const originalText = btn.textContent;
+        btn.innerHTML = '<span class="loading"></span> Downloading...';
+        btn.disabled = true;
+
+        const link = document.createElement('a');
+        const href = driveId ? `https://drive.google.com/uc?export=download&id=${driveId}` : getFileUrl(subject);
+        link.href = href;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Reset button state
+        btn.textContent = originalText;
+        btn.disabled = false;
+
+        showNotification('Download started', 'success');
+    }
+
+    function getSubjectName(subject) {
+        const names = {
+            'math': 'Mathematics Notes',
+            'physics': 'Physics Notes',
+            'chemistry': 'Chemistry Notes',
+            'biology': 'Biology Notes',
+            'math-questions': 'Mathematics Questions',
+            'physics-questions': 'Physics Questions',
+            'chemistry-questions': 'Chemistry Questions'
+        };
+        return names[subject] || subject;
+    }
+
+    function getFileUrl(subject) {
+        // Replace with actual file URLs
+        const urls = {
+            'math': 'https://example.com/files/math-notes.pdf',
+            'physics': 'https://example.com/files/physics-notes.pdf',
+            'chemistry': 'https://example.com/files/chemistry-notes.pdf',
+            'biology': 'https://example.com/files/biology-notes.pdf',
+            'math-questions': 'https://example.com/files/math-questions.pdf',
+            'physics-questions': 'https://example.com/files/physics-questions.pdf',
+            'chemistry-questions': 'https://example.com/files/chemistry-questions.pdf'
+        };
+        return urls[subject] || '#';
+    }
+
+    function getPreviewContent(subject) {
+        const content = {
+            'math': `
+                <div class="preview-content">
+                    <h3>Mathematics Study Notes</h3>
+                    <div class="preview-section">
+                        <h4>Chapter 1: Algebra</h4>
+                        <ul>
+                            <li>Linear Equations</li>
+                            <li>Quadratic Equations</li>
+                            <li>Polynomials</li>
+                            <li>Factorization</li>
+                        </ul>
+                    </div>
+                    <div class="preview-section">
+                        <h4>Chapter 2: Geometry</h4>
+                        <ul>
+                            <li>Triangles and their properties</li>
+                            <li>Circles and tangents</li>
+                            <li>Coordinate geometry</li>
+                            <li>Trigonometry basics</li>
+                        </ul>
+                    </div>
+                    <p><strong>Total Pages:</strong> 45 pages</p>
+                    <p><strong>File Size:</strong> 2.3 MB</p>
+                </div>
+            `,
+            'physics': `
+                <div class="preview-content">
+                    <h3>Physics Study Notes</h3>
+                    <div class="preview-section">
+                        <h4>Chapter 1: Mechanics</h4>
+                        <ul>
+                            <li>Motion in one dimension</li>
+                            <li>Laws of motion</li>
+                            <li>Work, energy and power</li>
+                            <li>Gravitation</li>
+                        </ul>
+                    </div>
+                    <div class="preview-section">
+                        <h4>Chapter 2: Thermodynamics</h4>
+                        <ul>
+                            <li>Heat and temperature</li>
+                            <li>Laws of thermodynamics</li>
+                            <li>Heat engines</li>
+                            <li>Entropy</li>
+                        </ul>
+                    </div>
+                    <p><strong>Total Pages:</strong> 52 pages</p>
+                    <p><strong>File Size:</strong> 3.1 MB</p>
+                </div>
+            `,
+            'chemistry': `
+                <div class="preview-content">
+                    <h3>Chemistry Study Notes</h3>
+                    <div class="preview-section">
+                        <h4>Chapter 1: Atomic Structure</h4>
+                        <ul>
+                            <li>Bohr's model</li>
+                            <li>Quantum mechanical model</li>
+                            <li>Electronic configuration</li>
+                            <li>Periodic properties</li>
+                        </ul>
+                    </div>
+                    <div class="preview-section">
+                        <h4>Chapter 2: Chemical Bonding</h4>
+                        <ul>
+                            <li>Ionic bonding</li>
+                            <li>Covalent bonding</li>
+                            <li>Metallic bonding</li>
+                            <li>Intermolecular forces</li>
+                        </ul>
+                    </div>
+                    <p><strong>Total Pages:</strong> 38 pages</p>
+                    <p><strong>File Size:</strong> 2.8 MB</p>
+                </div>
+            `,
+            'biology': `
+                <div class="preview-content">
+                    <h3>Biology Study Notes</h3>
+                    <div class="preview-section">
+                        <h4>Chapter 1: Cell Biology</h4>
+                        <ul>
+                            <li>Cell structure and function</li>
+                            <li>Cell division</li>
+                            <li>Cell organelles</li>
+                            <li>Cell membrane transport</li>
+                        </ul>
+                    </div>
+                    <div class="preview-section">
+                        <h4>Chapter 2: Genetics</h4>
+                        <ul>
+                            <li>Mendelian genetics</li>
+                            <li>DNA structure and replication</li>
+                            <li>Protein synthesis</li>
+                            <li>Genetic disorders</li>
+                        </ul>
+                    </div>
+                    <p><strong>Total Pages:</strong> 41 pages</p>
+                    <p><strong>File Size:</strong> 2.9 MB</p>
+                </div>
+            `,
+            'math-questions': `
+                <div class="preview-content">
+                    <h3>Mathematics Question Bank</h3>
+                    <div class="preview-section">
+                        <h4>Sample Questions:</h4>
+                        <div class="question-sample">
+                            <p><strong>Q1:</strong> Solve the quadratic equation x² - 5x + 6 = 0</p>
+                            <p><strong>Q2:</strong> Find the area of a triangle with sides 3, 4, and 5 units</p>
+                            <p><strong>Q3:</strong> Calculate the derivative of f(x) = x³ + 2x² - 5x + 1</p>
+                        </div>
+                    </div>
+                    <p><strong>Total Questions:</strong> 500+</p>
+                    <p><strong>Difficulty Levels:</strong> Easy, Medium, Hard</p>
+                    <p><strong>File Size:</strong> 4.2 MB</p>
+                </div>
+            `,
+            'physics-questions': `
+                <div class="preview-content">
+                    <h3>Physics Question Bank</h3>
+                    <div class="preview-section">
+                        <h4>Sample Questions:</h4>
+                        <div class="question-sample">
+                            <p><strong>Q1:</strong> A car accelerates from rest at 2 m/s² for 10 seconds. What is its final velocity?</p>
+                            <p><strong>Q2:</strong> Calculate the gravitational force between two masses of 5kg and 10kg separated by 2m</p>
+                            <p><strong>Q3:</strong> A wave has a frequency of 50Hz and wavelength of 2m. Find its speed</p>
+                        </div>
+                    </div>
+                    <p><strong>Total Questions:</strong> 400+</p>
+                    <p><strong>Topics Covered:</strong> Mechanics, Thermodynamics, Waves, Electricity</p>
+                    <p><strong>File Size:</strong> 3.8 MB</p>
+                </div>
+            `,
+            'chemistry-questions': `
+                <div class="preview-content">
+                    <h3>Chemistry Question Bank</h3>
+                    <div class="preview-section">
+                        <h4>Sample Questions:</h4>
+                        <div class="question-sample">
+                            <p><strong>Q1:</strong> Balance the chemical equation: H₂ + O₂ → H₂O</p>
+                            <p><strong>Q2:</strong> Calculate the molar mass of CaCO₃</p>
+                            <p><strong>Q3:</strong> What is the pH of a 0.1M HCl solution?</p>
+                        </div>
+                    </div>
+                    <p><strong>Total Questions:</strong> 350+</p>
+                    <p><strong>Topics Covered:</strong> Organic, Inorganic, Physical Chemistry</p>
+                    <p><strong>File Size:</strong> 3.2 MB</p>
+                </div>
+            `
+        };
+        return content[subject] || '<p>Preview not available for this content.</p>';
     }
 }
 
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
+// Smooth scrolling for anchor links
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const offsetTop = target.offsetTop - 70; // Account for fixed navbar
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// Parallax effects
+function initParallaxEffects() {
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.floating-card');
+        
+        parallaxElements.forEach((element, index) => {
+            const speed = 0.5 + (index * 0.1);
+            element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+}
+
+// Counter animations for statistics
+function initCounterAnimations() {
+    const counters = document.querySelectorAll('.stat-number');
+    const counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    function animateCounter(element) {
+        const target = parseInt(element.textContent.replace(/[^\d]/g, ''));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            
+            const suffix = element.textContent.replace(/[\d]/g, '');
+            element.textContent = Math.floor(current) + suffix;
+        }, 16);
     }
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+// Notification system
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
 
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateX(-50%) translateY(0);
-    }
-    40% {
-        transform: translateX(-50%) translateY(-10px);
-    }
-    60% {
-        transform: translateX(-50%) translateY(-5px);
-    }
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Scroll Animations */
-[data-aos] {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease;
-}
-
-[data-aos].aos-animate {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-[data-aos="fade-up"] {
-    transform: translateY(30px);
-}
-
-[data-aos="fade-right"] {
-    transform: translateX(-30px);
-}
-
-[data-aos="fade-left"] {
-    transform: translateX(30px);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    body { padding-top: 70px; }
-    .hamburger {
-        display: flex;
-    }
-
-    .nav-menu {
+    // Add notification styles
+    notification.style.cssText = `
         position: fixed;
-        left: -100vw;
-        top: 70px;
-        flex-direction: column;
-        background-color: white;
-        width: 100vw;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 2rem 0;
-        height: calc(100vh - 70px);
-        overflow-y: auto;
-    }
-
-    .nav-menu.active {
-        left: 0;
-    }
-
-    .nav-menu li {
-        margin: 1rem 0;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .hero-buttons {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .notes-grid,
-    .question-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .about-content,
-    .vision-mission,
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .about-stats {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .syllabus-tabs {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .tab-btn {
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : '#6366f1'};
+        color: white;
+        padding: 1rem 1.5rem;
         border-radius: 10px;
-    }
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        z-index: 3000;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+    `;
 
-    .section-title {
-        font-size: 2rem;
-    }
+    document.body.appendChild(notification);
 
-    .modal-content {
-        margin: 10% auto;
-        width: 95%;
-        padding: 1.5rem;
-    }
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
 }
 
-/* Google Drive preview iframe responsiveness */
-.drive-preview-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 62.5%; /* 16:10-ish aspect to fit Drive UI */
-    background: #0b1020;
-    border-radius: 12px;
-    overflow: hidden;
+// Form validation (for future contact form)
+function validateForm(form) {
+    const inputs = form.querySelectorAll('input[required], textarea[required]');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            input.classList.add('error');
+            isValid = false;
+        } else {
+            input.classList.remove('error');
+        }
+    });
+
+    return isValid;
 }
 
-.drive-preview-iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
+// Lazy loading for images (if added in future)
+function initLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+
+    images.forEach(img => imageObserver.observe(img));
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 0 15px;
-    }
-
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
-
-    .section {
-        padding: 60px 0;
-    }
-
-    .note-card,
-    .question-card,
-    .syllabus-card {
-        padding: 1.5rem;
-    }
-
-    .about-stats {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .btn {
-        width: 100%;
-        max-width: 250px;
-    }
-}
-
-/* Loading Animation */
-.loading {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+// Search functionality (for future implementation)
+function initSearch() {
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.note-card, .question-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(query) || description.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
     }
 }
 
-/* Smooth scrolling for older browsers */
-@media (prefers-reduced-motion: no-preference) {
-    html {
-        scroll-behavior: smooth;
+// Theme toggle (for future dark mode)
+function initThemeToggle() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
     }
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    .btn-primary {
-        border: 2px solid #000;
-    }
-    
-    .note-card,
-    .question-card,
-    .syllabus-card {
-        border: 2px solid #000;
-    }
+// Performance optimization
+function initPerformanceOptimizations() {
+    // Debounce scroll events
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(function() {
+            // Scroll-based operations here
+        }, 16);
+    });
+
+    // Preload critical resources
+    const criticalResources = [
+        'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
+    ];
+
+    criticalResources.forEach(resource => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'style';
+        link.href = resource;
+        document.head.appendChild(link);
+    });
 }
 
-/* Preview Modal Content Styles */
-.preview-content {
-    padding: 1rem 0;
+// Error handling
+window.addEventListener('error', function(e) {
+    console.error('JavaScript error:', e.error);
+    // You could send this to an error tracking service
+});
+
+// Service Worker registration (for PWA features)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful');
+            })
+            .catch(function(err) {
+                console.log('ServiceWorker registration failed');
+            });
+    });
 }
 
-.preview-content h3 {
-    color: #1f2937;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-}
-
-.preview-section {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: #f8fafc;
-    border-radius: 10px;
-    border-left: 4px solid #6366f1;
-}
-
-.preview-section h4 {
-    color: #1f2937;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-}
-
-.preview-section ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-.preview-section li {
-    padding: 0.25rem 0;
-    color: #6b7280;
-    position: relative;
-    padding-left: 1.5rem;
-}
-
-.preview-section li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #6366f1;
-    font-weight: bold;
-}
-
-.question-sample {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-}
-
-.question-sample p {
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
-}
-
-.preview-content p {
-    margin-bottom: 0.5rem;
-    color: #6b7280;
-}
-
-.preview-content strong {
-    color: #1f2937;
-}
-
-/* Print styles */
-@media print {
-    .navbar,
-    .hero,
-    .footer {
-        display: none;
-    }
-    
-    .section {
-        padding: 20px 0;
-    }
-    
-    .note-card,
-    .question-card,
-    .syllabus-card {
-        box-shadow: none;
-        border: 1px solid #000;
-    }
-}
-
-/* Python Compiler */
-.compiler-wrapper {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 1.5rem;
-}
-
-.editor-pane, .output-pane {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    overflow: hidden;
-}
-
-.compiler-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    background: #f9fafb;
-}
-
-.compiler-toolbar .left { display: flex; gap: 0.5rem; }
-.compiler-toolbar .right { display: flex; gap: 0.5rem; align-items: center; }
-
-.status-badge {
-    font-size: 0.85rem;
-    color: #374151;
-    background: #eef2ff;
-    border: 1px solid #c7d2fe;
-    padding: 4px 8px;
-    border-radius: 9999px;
-}
-
-#pythonEditor {
-    width: 100%;
-    min-height: 380px;
-    padding: 1rem;
-    border: none;
-    outline: none;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 14px;
-    line-height: 1.6;
-    resize: vertical;
-}
-
-.output-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    background: #f9fafb;
-}
-
-.btn-small { padding: 8px 14px; font-size: 0.9rem; }
-
-#pythonOutput {
-    margin: 0;
-    padding: 1rem;
-    min-height: 380px;
-    max-height: 520px;
-    overflow: auto;
-    background: #0b1020;
-    color: #e5e7eb;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-#pythonOutput .stderr { color: #fca5a5; }
-#pythonOutput .stdout { color: #d1fae5; }
-
-@media (max-width: 768px) {
-    .compiler-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    #pythonEditor, #pythonOutput {
-        min-height: 280px;
-    }
+// Export functions for testing (if needed)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        showNotification,
+        validateForm,
+        getSubjectName: function(subject) {
+            const names = {
+                'math': 'Mathematics Notes',
+                'physics': 'Physics Notes',
+                'chemistry': 'Chemistry Notes',
+                'biology': 'Biology Notes'
+            };
+            return names[subject] || subject;
+        }
+    };
 }
