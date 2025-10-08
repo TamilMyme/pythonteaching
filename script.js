@@ -319,13 +319,17 @@ function initDownloadPreview() {
 
     function getSubjectName(subject) {
         const names = {
-            'math': 'Mathematics Notes',
-            'physics': 'Physics Notes',
-            'chemistry': 'Chemistry Notes',
-            'biology': 'Biology Notes',
-            'math-questions': 'Mathematics Questions',
-            'physics-questions': 'Physics Questions',
-            'chemistry-questions': 'Chemistry Questions'
+            'math': 'UNIT -1 Notes',
+            'physics': 'UNIT -2  Notes',
+            'chemistry': 'UNIT -3 Notes',
+            'biology': 'UNIT -4 Notes',
+            'unit-5': 'UNIT -5 Notes',
+            'math-questions': 'UNIT -1 QB',
+            'physics-questions': 'UNIT -2 QB',
+            'chemistry-questions': 'UNIT -3 QB',
+            'UNIT-4': 'UNIT -4 QB',
+            'UNIT-5': 'UNIT -5 QB',
+            'lab': 'labmanual'
         };
         return names[subject] || subject;
     }
